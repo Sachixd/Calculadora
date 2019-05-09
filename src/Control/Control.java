@@ -17,88 +17,36 @@ public class Control {
     Calculadora calculadora;
 
     public Control() {
-
         calculadora = new Calculadora();
     }
-
+    
+    //Reduci codigo
     private String posFija(String notacion) {
-        String[] resultado = calculadora.posfijo(notacion);
-        String info = "";
-        try{
-            for (int i = 0; i < resultado.length; i++) {
-                if (resultado[i] == null) {
-                    break;
-                }
-                if (i == 0) {
-                    info += resultado[i];
-                }
-                if (i != 0) {
-                    info += "" + resultado[i];
-                }
-            }
-            info += "\n";
-            info += "Resultado: " + calculadora.resultadoOperaciones(resultado)+"\n";
-        }catch (Exception e){
-        
-        }
-        
-        return info;
+        return toStringArray(calculadora.posfijo(notacion));
     }
     
+    //Reduci codigo x2 xd
       public String prefija(String notacion) {
-        String[] resultado = calculadora.prefija(notacion);
-        String info = "";
-        try {
-            for (int i = 0; i < resultado.length; i++) {
-                if (resultado[i] == null) {
-                    break;
-                }
-                if (i == 0) {
-                    info += resultado[i];
-                }
-                if (i != 0) {
-                    info += "" + resultado[i];
-                }
-            }
-            info += "\n";
-            info += "Resultado: " + calculadora.resultadoOperaciones(resultado)+"\n" ;
-        } catch (Exception e) {
-            //JOptionPane.showMessageDialog(null, "vuelva a escribir la expresion aritmetica");
-        }
-
-        return info;
+        return toStringArray(calculadora.prefija(notacion));
     }
-
+    
+    private String toStringArray(String x[]){
+        String tmp = "";
+        for(String t : x){
+            tmp += t;
+        }
+        return tmp+"\n";
+    }
 
     public String posFijoPrefijo(String notacion){
     String info="";
     
         try {
-             info = posFija(notacion);
-             info += prefija(notacion);
+             info = posFija(notacion)+prefija(notacion)+"Resultado: "+calculadora.resultadoOperaciones(calculadora.posfijo(notacion));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
               JOptionPane.showMessageDialog(null, "vuelva a escribir la expresion aritmetica");
         }
     return info;
     }
-
-public String parentisis(String datos, int con) {
-
-        String info = null;
-        try {
-            if (con % 2 == 0) {
-                info = datos + "(";
-                con++;
-                System.out.println(con);
-            } else {
-                info = datos + ")";
-                con = 0;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
-        return info;
-    }
-
 }
